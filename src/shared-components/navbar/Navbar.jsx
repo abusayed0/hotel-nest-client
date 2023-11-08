@@ -17,7 +17,7 @@ const Navbar = () => {
                         <li><NavLink className="inline-block text-xl" to="/bookings">Bookings</NavLink></li>
                     </ul>
                 </div>
-                <h3 className="text-2xl font-bold">Hotel Nest</h3>
+                <h3 className="text-2xl font-bold text-[#643843]">Hotel Nest</h3>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="flex gap-5">
