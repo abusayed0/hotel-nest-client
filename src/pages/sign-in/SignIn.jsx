@@ -1,9 +1,16 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const SignIn = () => {
+
     const {loginUserEmailPass, googleSignIn} = useContext(AuthContext);
+
+    const location = useLocation();
+    const from = location.state?.from || "/";
+    console.log(from);
+
+    const navigate = useNavigate();
 
     const handleSignIn = e => {
         e.preventDefault();
@@ -17,6 +24,9 @@ const SignIn = () => {
         .then(credentail => {
             const loggedUser = credentail.user;
             console.log({loggedUser});
+
+            // navigate user after successfully sign in 
+            navigate(from,{replace: true});
         })
         .catch(err => {
             const errMess = err.message;
@@ -29,12 +39,17 @@ const SignIn = () => {
         .then(result => {
             const loggedUser = result.user;
             console.log(loggedUser);
+
+             // navigate user after successfully sign in 
+             navigate(from,{replace: true});
         })
         .catch(err => {
             const errMess = err.message;
             console.error(errMess);
         })
-    }
+    };
+
+    
 
     return (
         <div className="bg-[lightgray] w-full md:w-4/5 lg:w-1/2 md:mx-auto p-2 md:p-16">

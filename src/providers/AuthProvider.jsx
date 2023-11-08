@@ -9,6 +9,7 @@ const AuthProvider = ({children}) => {
     const [isLoading, setIsLoading] = useState(true);
 
     const createAccount = (email, password) => {
+        setIsLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     };
 
@@ -17,14 +18,17 @@ const AuthProvider = ({children}) => {
     };
 
     const loginUserEmailPass = (email, password) => {
+        setIsLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
     };
 
     const googleSignIn = () => {
+        setIsLoading(true);
         return signInWithPopup(auth, googleProvider);
     };
 
     const signOutUser = () => {
+        setIsLoading(true);
         return signOut(auth);
     };
 

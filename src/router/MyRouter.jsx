@@ -6,6 +6,7 @@ import Bookings from "../pages/bookings/Bookings";
 import SignIn from "../pages/sign-in/SignIn";
 import SignUp from "../pages/sign-up/SignUp";
 import RoomDetails from "../pages/room-details/RoomDetails";
+import ProetectedPage from "../protected-page/ProetectedPage";
 
 const MyRouter = createBrowserRouter([
     {
@@ -28,7 +29,7 @@ const MyRouter = createBrowserRouter([
             },
             {
                 path: "/bookings",
-                element: <Bookings/>
+                element: <ProetectedPage><Bookings/></ProetectedPage>
             },
             {
                 path: "/sign-in",

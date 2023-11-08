@@ -1,13 +1,17 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const SignUp = () => {
     const { createAccount, updateUserInfo } = useContext(AuthContext);
+    const navigate = useNavigate();
     const hadleUpdateUserInfo = (userInfo) => {
         updateUserInfo(userInfo)
             .then(() => {
                 console.log("Profile Updated!");
+
+                // navigate user after successfully update use info 
+                navigate("/", {replace: true});
             })
             .catch((err) => {
                 const errMess = err.message;
