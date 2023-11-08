@@ -17,6 +17,7 @@ const MyRouter = createBrowserRouter([
             },
             {
                 path: "/rooms",
+                loader: () => fetch("http://localhost:5000/rooms"),
                 element: <Rooms/>
             },
             {

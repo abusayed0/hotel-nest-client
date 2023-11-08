@@ -5,7 +5,7 @@ import "./Navbar.css"
 const Navbar = () => {
     const navigate = useNavigate();
     return (
-        <nav className="navbar py-3 p-0  min-h-[auto] bg-[#E7CBCB] mb-20 px-1 md:px-12 xl:px-20">
+        <nav className="navbar py-3 p-0  min-h-[auto] bg-[#E7CBCB] mb-20 px-1 md:px-12 lg:px-20">
             <div className="navbar-start gap-1 lg:gap-0">
                 <div className="dropdown">
                     <label tabIndex={0} className="lg:hidden">

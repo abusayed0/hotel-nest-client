@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
-        <div className="mt-20 bg-[#E7CBCB] p-1 md:p-12 xl:p-20">
+        <div className="mt-20 bg-[#E7CBCB] p-1 md:p-12 lg:p-20">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="text-center md:text-start">
                     <h3 className="text-2xl font-bold text-[#643843]">Hotel Nest</h3>

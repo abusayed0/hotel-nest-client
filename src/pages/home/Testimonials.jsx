@@ -24,7 +24,10 @@ const Testimonials = () => {
             </div>
             <Swiper
                 navigation={true}
-                
+                autoplay={{
+                    delay: 2500,
+                    disableOnInteraction: false,
+                }}
                 modules={[Navigation, Autoplay]}
                 className="mt-10 mySwiper"
                 loop={true}
