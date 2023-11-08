@@ -119,7 +119,7 @@ const RoomDetails = () => {
 
     return (
         <div>
-            <div className="bg-[#e7cbcb33] p-5">
+            <div className="bg-[#e7cbcb33] p-2 md:p-5">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-7 ">
                     <div className="flex flex-col gap-4">
                         <h2 className="text-4xl">{title}</h2>
