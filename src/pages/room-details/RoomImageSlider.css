@@ -1,4 +1,5 @@
 .image-container img{
-    max-height: 100% !important;
+    /* max-height: 100% !important; */
+    /* height: 500px; */
     object-fit: cover !important;
 }

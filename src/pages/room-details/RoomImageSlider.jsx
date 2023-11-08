@@ -3,7 +3,7 @@ import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css"
 import "./RoomImageSlider.css"
 const RoomImageSlider = ({ photos }) => {
-    console.log(photos);
+    // console.log(photos);
     const images = photos.map(photo => {
         return {
             original: photo,
@@ -12,7 +12,7 @@ const RoomImageSlider = ({ photos }) => {
         }
     });
 
-    console.log(images);
+    // console.log(images);
     return (
       
             <ImageGallery
