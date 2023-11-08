@@ -28,6 +28,7 @@ const MyRouter = createBrowserRouter([
                 element: <RoomDetails/>
             },
             {
+              
                 path: "/bookings",
                 element: <ProetectedPage><Bookings/></ProetectedPage>
             },

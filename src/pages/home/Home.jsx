@@ -11,7 +11,7 @@ import WellComeBanner from './WellComeBanner';
 
 
 const Home = () => {
-    console.log(moment());
+    console.log(moment()._d);
 
     return (
         <div>
