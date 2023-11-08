@@ -1,13 +1,41 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const SignIn = () => {
+    const {loginUserEmailPass, googleSignIn} = useContext(AuthContext);
+
     const handleSignIn = e => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
         console.log(email, password);
+
+        // login user using email and password 
+        loginUserEmailPass(email, password)
+        .then(credentail => {
+            const loggedUser = credentail.user;
+            console.log({loggedUser});
+        })
+        .catch(err => {
+            const errMess = err.message;
+            console.error(errMess);
+        })
     };
+
+    const handleGoogleSignIn = () => {
+        googleSignIn()
+        .then(result => {
+            const loggedUser = result.user;
+            console.log(loggedUser);
+        })
+        .catch(err => {
+            const errMess = err.message;
+            console.error(errMess);
+        })
+    }
+
     return (
         <div className="bg-[lightgray] w-full md:w-4/5 lg:w-1/2 md:mx-auto p-2 md:p-16">
             <h2 className="text-4xl font-semibold text-center">Sign In</h2>
@@ -25,7 +53,7 @@ const SignIn = () => {
             <div className="mt-7">
                 <p className="text-xl text-center">Or Sign In with</p>
                 <div className="mt-4 text-center">
-                    <button className="rounded px-3 py-2 text-xl font-medium text-white bg-[#ea4335]">Google</button>
+                    <button onClick={handleGoogleSignIn} className="rounded px-3 py-2 text-xl font-medium text-white bg-[#ea4335]">Google</button>
                 </div>
             </div>
             <p className="mt-10 text-xl text-center">Do not have any account yet? <Link className="text-[#643843]" to="/sign-up">Sign Up</Link></p>

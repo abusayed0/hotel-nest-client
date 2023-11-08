@@ -1,9 +1,24 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import "./Navbar.css"
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const {user, signOutUser} = useContext(AuthContext);
+
+    const handleSignOutUser = () => {
+        signOutUser()
+        .then(() => {
+            console.log("sign out successfull");
+        })
+        .catch(err => {
+            const errMess = err.message;
+            console.error(errMess);
+        })
+    };
+
     return (
         <nav className="navbar py-3 p-0  min-h-[auto] bg-[#E7CBCB] mb-20 px-1 md:px-12 lg:px-20">
             <div className="navbar-start gap-1 lg:gap-0">
@@ -28,7 +43,16 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <button onClick={() => navigate("/sign-in")} className="px-3 py-2 text-xl font-medium text-white bg-[#643843] hover:bg-[#99627A] rounded">Sign In</button>
+                {
+                    user
+                    ?
+                    <div className="flex gap-2 items-center">
+                        <img title={user.displayName} className="w-10 h-10 rounded-full" src={user.photoURL} alt="" />
+                        <button onClick={handleSignOutUser} className="px-3 py-2 text-xl font-medium text-white bg-[#643843] hover:bg-[#99627A] rounded">Sign Out</button>
+                    </div>
+                    :
+                    <button onClick={() => navigate("/sign-in")} className="px-3 py-2 text-xl font-medium text-white bg-[#643843] hover:bg-[#99627A] rounded">Sign In</button>
+                }
             </div>
         </nav>
         

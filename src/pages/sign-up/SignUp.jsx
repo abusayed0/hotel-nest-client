@@ -1,6 +1,19 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const SignUp = () => {
+    const { createAccount, updateUserInfo } = useContext(AuthContext);
+    const hadleUpdateUserInfo = (userInfo) => {
+        updateUserInfo(userInfo)
+            .then(() => {
+                console.log("Profile Updated!");
+            })
+            .catch((err) => {
+                const errMess = err.message;
+                console.error(errMess);
+            })
+    };
     const handleSignUP = e => {
         e.preventDefault();
         const form = e.target;
@@ -8,7 +21,26 @@ const SignUp = () => {
         const photo = form.photo.value;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(name, photo, email, password);
+        // console.log(name, photo, email, password);
+
+        // create a new user account 
+        createAccount(email, password)
+            .then(credential => {
+                const createdUser = credential.user;
+                console.log({ createdUser });
+
+                // add user photo and name 
+                const info = {
+                    displayName: name,
+                    photoURL: photo
+                };
+                hadleUpdateUserInfo(info);
+            })
+            .catch(err => {
+                const errorMessage = err.message;
+                console.error(errorMessage);
+            })
+
     };
     return (
         <div className="bg-[lightgray] w-full md:w-4/5 lg:w-1/2 md:mx-auto p-2 md:p-16">

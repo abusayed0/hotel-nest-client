@@ -1,9 +1,12 @@
 import { useLoaderData } from "react-router-dom";
 import RoomImageSlider from "./RoomImageSlider";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { AuthContext } from "../../providers/AuthProvider";
 const RoomDetails = () => {
+    const {user} = useContext(AuthContext);
+    console.log(user);
     const roomDetails = useLoaderData();
     const { _id, title, description, cost_per_night, size, special_offer, total_seat, total_review, thumbnail_image, images } = roomDetails;
     const [review, setReview] = useState([]);
@@ -135,7 +138,7 @@ const RoomDetails = () => {
                 </div>
                 <div className="mt-8 text-center">
 
-                    <button disabled={!date ? true : false} className=" px-4 py-2 text-xl font-medium text-white bg-[#643843] hover:bg-[#99627A]">Book Now</button>
+                    <button disabled={!date || !availableSeat? true : false} className=" px-4 py-2 text-xl font-medium text-white bg-[#643843] hover:bg-[#99627A]">Book Now</button>
                 </div>
 
             </div>
