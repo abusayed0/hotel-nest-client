@@ -36,8 +36,8 @@ const RoomDetails = () => {
             return;
         }
         setLoading(true);
-        
-        fetch(`http://localhost:5000/booking-data?date=${formattedDate}&roomId=${_id}`)
+
+        fetch(`http://localhost:5000/booking-data?bookedDate=${formattedDate}&roomId=${_id}`)
             .then(res => res.json())
             .then(data => {
                 if (data.status === "all room available") {
@@ -47,7 +47,7 @@ const RoomDetails = () => {
                 }
                 else {
                     setAvailableSeat(data.restSeat);
-                    setAvailable(date.restSeat > 0)
+                    setAvailable(data.restSeat > 0)
                     setLoading(false);
                 }
             })
@@ -58,6 +58,8 @@ const RoomDetails = () => {
     };
 
     const handleBooking = () => {
+
+        // now user not logged in return 
         if (!user) {
             return navigate("/sign-in", { state: { from } });
         }
@@ -69,7 +71,51 @@ const RoomDetails = () => {
         // setDate(null);
         // setAvailable(null);
         // availableSeat(0);
-    }
+        const bookigDate = {
+            bookedDate: moment(date).format("DD-MM-YYYY"),
+            roomId: _id,
+            restSeat: availableSeat - 1
+        }
+        fetch(`http://localhost:5000/booking-data`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(bookigDate)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId || data.modifiedCount) {
+                    console.log("booked successfully");
+                    setAvailableSeat(availableSeat - 1);
+                    setAvailable(availableSeat - 1 > 0);
+                }
+            })
+
+        const bookingInfo = {
+            roomId: _id,
+            title,
+            description,
+            cost_per_night,
+            size,
+            thumbnail_image,
+            userEmail: user.email,
+            userName : user.displayName,
+            bookedDate: moment(date).format("DD-MM-YYYY")
+        }
+        fetch(`http://localhost:5000/users-bookings`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(bookingInfo)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+
+    };
 
     return (
         <div>
@@ -173,9 +219,9 @@ const RoomDetails = () => {
                             <p className="text-xl">Booked Seat : 1</p>
                             <p className="text-xl">Booked date : {moment(date).format("dddd, MMMM Do YYYY")}</p>
                             <div className="flex gap-2 mt-4 justify-center">
-                                    <button onClick={handleConfirm} className="rounded-md px-2 py-1 text-xl text-white bg-[#643843]">Confirm</button>
-                                    <button onClick={() => modalRef.current.close()} className="rounded-md px-2 py-1 text-xl text-white bg-[tomato]">Close</button>
-                                
+                                <button onClick={handleConfirm} className="rounded-md px-2 py-1 text-xl text-white bg-[#643843]">Confirm</button>
+                                <button onClick={() => modalRef.current.close()} className="rounded-md px-2 py-1 text-xl text-white bg-[tomato]">Close</button>
+
                             </div>
                         </div>
                     </dialog>
