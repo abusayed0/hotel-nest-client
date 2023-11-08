@@ -1,11 +1,12 @@
 import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import RoomImageSlider from "./RoomImageSlider";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { AuthContext } from "../../providers/AuthProvider";
+import moment from "moment/moment";
 const RoomDetails = () => {
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const from = useLocation().pathname;
     const navigate = useNavigate();
     const roomDetails = useLoaderData();
@@ -16,13 +17,18 @@ const RoomDetails = () => {
     const [availableSeat, setAvailableSeat] = useState(null);
     const [available, setAvailable] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    const modalRef = useRef(null);
 
     // console.log(roomDetails);
 
     // console.log("available", available);
     const handleChangeDate = newDate => {
-        console.log(newDate);
 
+        const formattedDate = moment(newDate).format("DD-MM-YYYY");
+        console.log(formattedDate);
+
+        setError("");
         setDate(newDate);
         setAvailableSeat(null);
         setAvailable(null);
@@ -30,9 +36,8 @@ const RoomDetails = () => {
             return;
         }
         setLoading(true);
-        const dateString = `${newDate.getDate()}-${newDate.getMonth() + 1}-${newDate.getFullYear()}`;
-        // console.log(dateString);
-        fetch(`http://localhost:5000/booking-data?date=${dateString}&roomId=${_id}`)
+        
+        fetch(`http://localhost:5000/booking-data?date=${formattedDate}&roomId=${_id}`)
             .then(res => res.json())
             .then(data => {
                 if (data.status === "all room available") {
@@ -46,13 +51,25 @@ const RoomDetails = () => {
                     setLoading(false);
                 }
             })
+            .catch(() => {
+                setError("failed to load");
+                setLoading(false);
+            })
     };
 
     const handleBooking = () => {
-        if(!user){
-            navigate("/sign-in",{state: {from}});
+        if (!user) {
+            return navigate("/sign-in", { state: { from } });
         }
+        modalRef.current.showModal();
     };
+
+    const handleConfirm = () => {
+        modalRef.current.close();
+        // setDate(null);
+        // setAvailable(null);
+        // availableSeat(0);
+    }
 
     return (
         <div>
@@ -63,7 +80,7 @@ const RoomDetails = () => {
                         <p className="text-xl">{description}</p>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-center md:text-left">
                             <div className="flex flex-col gap-1">
-                                <h4 className="text-xl">Cost per seat</h4>
+                                <h4 className="text-xl">Cost per night</h4>
                                 <h3 className="text-3xl font-medium">${cost_per_night}</h3>
                             </div>
                             <div className="flex flex-col gap-1">
@@ -110,7 +127,6 @@ const RoomDetails = () => {
                 <div className="flex gap-2 justify-center items-center">
                     <label htmlFor="date" className="text-xl">Booking Date :</label>
                     <DatePicker
-                        // onFocus={(e) => e.target.setAttribute("readOnly","true")}
                         onChangeRaw={e => e.preventDefault()}
                         dateFormat="dd/MM/yyyy"
                         id="date"
@@ -142,14 +158,32 @@ const RoomDetails = () => {
                     {
                         !date && <p className="text-xl text-red-600">Please select a date first</p>
                     }
+                    {
+                        error && <p className="text-xl text-red-600">{error}</p>
+                    }
                 </div>
                 <div className="mt-8 text-center">
 
-                    <button onClick={handleBooking} disabled={!date || !availableSeat? true : false} className=" px-4 py-2 text-xl font-medium text-white bg-[#643843] hover:bg-[#99627A]">Book Now</button>
+                    <button onClick={handleBooking} disabled={!date || !availableSeat ? true : false} className=" px-4 py-2 text-xl font-medium text-white bg-[#643843] hover:bg-[#99627A]">Book Now</button>
+                    <dialog ref={modalRef} className="modal">
+                        <div className="modal-box flex flex-col gap-2">
+                            <h3 className="font-bold text-2xl">{title}</h3>
+                            <p className="text-xl">{description}</p>
+                            <p className="text-xl">Per night : ${cost_per_night}</p>
+                            <p className="text-xl">Booked Seat : 1</p>
+                            <p className="text-xl">Booked date : {moment(date).format("dddd, MMMM Do YYYY")}</p>
+                            <div className="flex gap-2 mt-4 justify-center">
+                                    <button onClick={handleConfirm} className="rounded-md px-2 py-1 text-xl text-white bg-[#643843]">Confirm</button>
+                                    <button onClick={() => modalRef.current.close()} className="rounded-md px-2 py-1 text-xl text-white bg-[tomato]">Close</button>
+                                
+                            </div>
+                        </div>
+                    </dialog>
+
                 </div>
 
             </div>
-        </div>
+        </div >
     );
 };
 

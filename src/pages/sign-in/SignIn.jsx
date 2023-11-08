@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const SignIn = () => {
-
+    
     const {loginUserEmailPass, googleSignIn} = useContext(AuthContext);
 
     const location = useLocation();
