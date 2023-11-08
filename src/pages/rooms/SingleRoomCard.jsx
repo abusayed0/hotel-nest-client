@@ -1,10 +1,15 @@
 import PropTypes from 'prop-types'; 
+import { useNavigate } from 'react-router-dom';
 const SingleRoomCard = ({roomData}) => {
-    console.log(roomData);
+
+    // console.log(roomData);
     const {_id, title,thumbnail_image, cost_per_night, total_review} = roomData;
-    console.log(total_review);
+    // console.log(total_review);
+
+    const navigate = useNavigate();
+
     return (
-        <div className="relative bg-[#e7cbcb33]">
+        <div onClick={() => navigate(`/room/${_id}`)} className="relative bg-[#e7cbcb33] cursor-pointer">
             <img className="h-[250px] w-full" src={thumbnail_image} alt="" />
             <p className="absolute right-3 top-3 bg-[#9b804e] px-4 py-2 text-white text-xl">${cost_per_night} / per day</p>
             <div className="text-center p-2">
