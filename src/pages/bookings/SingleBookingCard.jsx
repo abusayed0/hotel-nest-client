@@ -1,12 +1,13 @@
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const SingleBookingCard = ({ bookingData, handleMyBookings}) => {
     // console.log(bookingData);
     const { _id, roomId, thumbnail_image, title, bookedDate, cost_per_night } = bookingData;
-
+    const navigate = useNavigate();
     const handleDeleteBooking = () => {
         const currentDateMom = moment();
         const bookedDateMom = moment(bookedDate, 'DD-MM-YYYY');
@@ -80,7 +81,8 @@ const SingleBookingCard = ({ bookingData, handleMyBookings}) => {
                 </div>
                 <div className="flex flex-col gap-1 items-end">
                     <button onClick={handleDeleteBooking} className="text-white font-medium p-2 bg-[tomato] rounded">Cancel</button>
-                    <button className=" text-white font-medium p-2 bg-[#643843] rounded">Update Date</button>
+                    <button onClick={() => navigate(`/update-booking/${_id}`)} className=" text-white font-medium p-2 bg-[#643843] rounded">Update Date</button>
+                    <button className=" text-white font-medium p-2 bg-[#643843] rounded">Add Review</button>
                 </div>
             </div>
         </div>

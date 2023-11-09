@@ -77,6 +77,7 @@ const RoomDetails = () => {
             roomId: _id,
             restSeat: availableSeat - 1
         }
+        
         fetch(`http://localhost:5000/booking-data`, {
             method: "POST",
             headers: {
@@ -88,8 +89,6 @@ const RoomDetails = () => {
             .then(data => {
                 console.log(data);
                 if (data.insertedId || data.modifiedCount) {
-                    setAvailableSeat(availableSeat - 1);
-                    setAvailable(availableSeat - 1 > 0);
 
                     // add to user booking collection if previos crud post oparaiton is successfull 
                     const bookingInfo = {
@@ -98,6 +97,7 @@ const RoomDetails = () => {
                         description,
                         cost_per_night,
                         size,
+                        total_seat: total_seat,
                         thumbnail_image,
                         userEmail: user.email,
                         userName: user.displayName,
@@ -114,6 +114,8 @@ const RoomDetails = () => {
                         .then(res => res.json())
                         .then(data => {
                             console.log(data);
+                            setAvailableSeat(availableSeat - 1);
+                            setAvailable(availableSeat - 1 > 0);
                             toast.success("Room seat booked successfully.");
                         })
                 }
@@ -177,7 +179,7 @@ const RoomDetails = () => {
             </div>
             <div className="mt-20 bg-[lightgray] p-8">
                 <div className="flex gap-2 justify-center items-center">
-                    <label htmlFor="date" className="text-xl">Booking Date :</label>
+                    <label htmlFor="date" className="text-xl">Date :</label>
                     <DatePicker
                         onChangeRaw={e => e.preventDefault()}
                         dateFormat="dd/MM/yyyy"

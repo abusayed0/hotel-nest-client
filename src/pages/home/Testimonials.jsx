@@ -19,7 +19,6 @@ const Testimonials = () => {
     return (
         <div className="mt-20 border p-2 md:p-5 bg-[#e7cbcb33]">
             <div className="text-center">
-                <h4 className="text-2xl font-semibold">Testimonials</h4>
                 <h2 className="mt-2 text-4xl font-bold">What our clients say about us</h2>
             </div>
             <Swiper

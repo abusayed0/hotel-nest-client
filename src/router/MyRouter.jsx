@@ -8,6 +8,7 @@ import SignUp from "../pages/sign-up/SignUp";
 import RoomDetails from "../pages/room-details/RoomDetails";
 import ProetectedPage from "../protected-page/ProetectedPage";
 import ErrorPage from "../pages/error-page/ErrorPage";
+import UpdateDate from "../pages/update-date/UpdateDate";
 
 const MyRouter = createBrowserRouter([
     {
@@ -42,6 +43,11 @@ const MyRouter = createBrowserRouter([
                 path: "/sign-up",
                 element: <SignUp/>
             },
+            {
+                path: "/update-booking/:bookingId",
+                loader: ({params}) => fetch(`http://localhost:5000/my-bookings/${params.bookingId}`),
+                element:<ProetectedPage><UpdateDate/></ProetectedPage>
+            }
         ]
     }
 ]);

@@ -5,7 +5,7 @@ import SingleBookingCard from "./SingleBookingCard";
 const Bookings = () => {
     const [myBookings, setMyBookings] = useState([]);
     
-
+    
     const handleMyBookings = id => {
         const rest = myBookings.filter(booking => booking._id !== id);
         setMyBookings(rest);
@@ -20,7 +20,7 @@ const Bookings = () => {
     return (
         <div>
             {
-                !myBookings ?
+                ! myBookings.length ?
                 <p className="text-xl text-center">You have no booking.</p>
                 :
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
