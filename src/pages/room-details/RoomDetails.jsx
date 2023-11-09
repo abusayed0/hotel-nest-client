@@ -40,7 +40,7 @@ const RoomDetails = () => {
         }
         setLoading(true);
 
-        fetch(`http://localhost:5000/booking-data?bookedDate=${formattedDate}&roomId=${_id}`)
+        fetch(`https://hotel-nest-server.vercel.app/booking-data?bookedDate=${formattedDate}&roomId=${_id}`)
             .then(res => res.json())
             .then(data => {
                 if (data.status === "all room available") {
@@ -80,7 +80,7 @@ const RoomDetails = () => {
             restSeat: availableSeat - 1
         }
 
-        fetch(`http://localhost:5000/booking-data`, {
+        fetch(`https://hotel-nest-server.vercel.app/booking-data`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -106,7 +106,7 @@ const RoomDetails = () => {
                         bookedDate: moment(date).format("DD-MM-YYYY")
                     };
 
-                    fetch(`http://localhost:5000/users-bookings`, {
+                    fetch(`https://hotel-nest-server.vercel.app/users-bookings`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -128,7 +128,7 @@ const RoomDetails = () => {
     };
 
     useEffect(() => {
-        fetch(`http://localhost:5000/reviews?roomId=${_id}`)
+        fetch(`https://hotel-nest-server.vercel.app/reviews?roomId=${_id}`)
             .then(res => res.json())
             .then(data => {
                 setReviews(data)
@@ -194,7 +194,7 @@ const RoomDetails = () => {
                         }
                     </div>
                 </div>
-                <div className="mt-20 bg-[lightgray] p-8">
+                <div className="mt-20 bg-[lightgray] p-2 md:p-8">
                     <div className="flex gap-2 justify-center items-center">
                         <label htmlFor="date" className="text-xl">Date :</label>
                         <DatePicker

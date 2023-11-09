@@ -37,7 +37,7 @@ const UpdateDate = () => {
         }
         setLoading(true);
 
-        fetch(`http://localhost:5000/booking-data?bookedDate=${formattedDate}&roomId=${roomId}`)
+        fetch(`https://hotel-nest-server.vercel.app/booking-data?bookedDate=${formattedDate}&roomId=${roomId}`)
             .then(res => res.json())
             .then(data => {
                 if (data.status === "all room available") {
@@ -62,7 +62,7 @@ const UpdateDate = () => {
             date: moment(date).format("DD-MM-YYYY"),
         }
         // change the date in user booking collection 
-        fetch(`http://localhost:5000/my-bookings/${_id}`, {
+        fetch(`https://hotel-nest-server.vercel.app/my-bookings/${_id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
@@ -79,7 +79,7 @@ const UpdateDate = () => {
                         roomId: roomId,
                         restSeat: total_seat - 1
                     }
-                    fetch(`http://localhost:5000/update/booking-data`, {
+                    fetch(`https://hotel-nest-server.vercel.app/update/booking-data`, {
                         method: "PATCH",
                         headers: {
                             "Content-Type": "application/json"
@@ -101,7 +101,7 @@ const UpdateDate = () => {
     return (
         <>
             <Seo titleText="Hotel Nest | Update Date" />
-            <div className="mt-20 bg-[lightgray] p-8">
+            <div className="mt-20 bg-[lightgray] p-2 md:p-8">
                 <h3 className="text-3xl font-semibold text-center">You booked for date : {shortStringDate}</h3>
                 <div className="mt-7 flex gap-2 justify-center items-center">
                     <label htmlFor="date" className="text-xl">Date :</label>

@@ -14,7 +14,7 @@ const Bookings = () => {
     }
     const { user } = useContext(AuthContext);
     useEffect(() => {
-        fetch(`http://localhost:5000/my-bookings?email=${user.email}`, {
+        fetch(`https://hotel-nest-server.vercel.app/my-bookings?email=${user.email}`, {
             credentials: "include"
         })
             .then(res => res.json())

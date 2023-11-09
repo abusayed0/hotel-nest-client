@@ -25,7 +25,7 @@ const AddReview = () => {
             roomId,
             time: moment().format("dddd, MMMM Do YYYY")
         };
-        fetch("http://localhost:5000/reviews", {
+        fetch("https://hotel-nest-server.vercel.app/reviews", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

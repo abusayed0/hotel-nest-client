@@ -1,8 +1,11 @@
-# React + Vite
+# [live website link](https://hotel-nest.netlify.app/)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+* users can book room by date.
+* if someone booked a room seat for a day other cann't book that seat for same day. but can book that for other day.
+* users can update booking date.
+* users can cancel booking date a day before of booking date.
+* users can post review for booked room.
+* users can fiter rooms by price range.
+* Have email-password and google authentication system.
+* only authentic users can book rooms.

@@ -23,12 +23,12 @@ const MyRouter = createBrowserRouter([
             },
             {
                 path: "/rooms",
-                loader: () => fetch("http://localhost:5000/rooms"),
+                loader: () => fetch("https://hotel-nest-server.vercel.app/rooms"),
                 element: <Rooms/>
             },
             {
                 path: "/room/:id",
-                loader: ({params}) => fetch(`http://localhost:5000/room/${params.id}`),
+                loader: ({params}) => fetch(`https://hotel-nest-server.vercel.app/room/${params.id}`),
                 element: <RoomDetails/>
             },
             {
@@ -46,7 +46,7 @@ const MyRouter = createBrowserRouter([
             },
             {
                 path: "/update-booking/:bookingId",
-                loader: ({params}) => fetch(`http://localhost:5000/my-bookings/${params.bookingId}`),
+                loader: ({params}) => fetch(`https://hotel-nest-server.vercel.app/my-bookings/${params.bookingId}`),
                 element:<ProetectedPage><UpdateDate/></ProetectedPage>
             },
             {

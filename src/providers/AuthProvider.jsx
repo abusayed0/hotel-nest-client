@@ -52,7 +52,7 @@ const AuthProvider = ({children}) => {
             // setIsLoading(false);
             if(currentUser){
                 const userInfo = {email: currentUser.email}
-                fetch("http://localhost:5000/jwt",{
+                fetch("https://hotel-nest-server.vercel.app/jwt",{
                     method: "POST",
                     credentials:"include",
                     headers:{
@@ -70,7 +70,7 @@ const AuthProvider = ({children}) => {
                 })
             }
             else{
-                fetch("http://localhost:5000/sign-out", {
+                fetch("https://hotel-nest-server.vercel.app/sign-out", {
                     method: "POST",
                     credentials: "include",
                     headers:{

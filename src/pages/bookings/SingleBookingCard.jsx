@@ -38,7 +38,7 @@ const SingleBookingCard = ({ bookingData, handleMyBookings}) => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/my-bookings?bookingId=${_id}`, {
+                fetch(`https://hotel-nest-server.vercel.app/my-bookings?bookingId=${_id}`, {
                     method: "DELETE",
                 })
                     .then(res => res.json())
@@ -48,7 +48,7 @@ const SingleBookingCard = ({ bookingData, handleMyBookings}) => {
                             bookedDate: bookedDate,
                             roomId: roomId,
                         };
-                        fetch(`http://localhost:5000/booking-data`, {
+                        fetch(`https://hotel-nest-server.vercel.app/booking-data`, {
                             method: "PATCH",
                             headers: {
                                 "Content-Type": "application/json"
