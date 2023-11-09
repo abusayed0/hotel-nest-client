@@ -4,12 +4,19 @@ import SingleBookingCard from "./SingleBookingCard";
 
 const Bookings = () => {
     const [myBookings, setMyBookings] = useState([]);
+    
+
+    const handleMyBookings = id => {
+        const rest = myBookings.filter(booking => booking._id !== id);
+        setMyBookings(rest);
+    }
     const {user} = useContext(AuthContext);
     useEffect(() => {
         fetch(`http://localhost:5000/my-bookings?email=${user.email}`)
         .then(res => res.json())
         .then(data => setMyBookings(data))
     }, [user]);
+
     return (
         <div>
             {
@@ -21,6 +28,7 @@ const Bookings = () => {
                         myBookings.map(booking => <SingleBookingCard
                             key={booking._id}
                             bookingData={booking}
+                            handleMyBookings={handleMyBookings}
                         />)
                     }
                 </div>

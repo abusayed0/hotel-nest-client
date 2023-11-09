@@ -71,7 +71,7 @@ const RoomDetails = () => {
         // setDate(null);
         // setAvailable(null);
         // availableSeat(0);
-        const bookigDate = {
+        const bookingData = {
             bookedDate: moment(date).format("DD-MM-YYYY"),
             roomId: _id,
             restSeat: availableSeat - 1
@@ -81,7 +81,7 @@ const RoomDetails = () => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(bookigDate)
+            body: JSON.stringify(bookingData)
         })
             .then(res => res.json())
             .then(data => {
@@ -220,7 +220,7 @@ const RoomDetails = () => {
                             <p className="text-xl">Booked date : {moment(date).format("dddd, MMMM Do YYYY")}</p>
                             <div className="flex gap-2 mt-4 justify-center">
                                 <button onClick={handleConfirm} className="rounded-md px-2 py-1 text-xl text-white bg-[#643843]">Confirm</button>
-                                <button onClick={() => modalRef.current.close()} className="rounded-md px-2 py-1 text-xl text-white bg-[tomato]">Close</button>
+                                <button onClick={() => modalRef.current.close()} className="rounded-md px-2 py-1 text-xl text-white bg-[tomato]">Cancel</button>
 
                             </div>
                         </div>
