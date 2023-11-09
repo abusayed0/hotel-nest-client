@@ -57,11 +57,11 @@ const SignIn = () => {
             <form onSubmit={handleSignIn} className="mt-9 flex flex-col gap-7">
                 <div className="flex flex-col gap-4">
                     <label htmlFor="email" className="text-xl font-semibold">Email</label>
-                    <input className="p-4 rounded-xl outline outline-1 outline-[#E8E8E8] focus-within:outline-[#643843]" type="email" name="email" id="email" placeholder="Your Email" />
+                    <input className="p-4 rounded-xl outline outline-1 outline-[#E8E8E8] focus-within:outline-[#643843]" type="email" name="email" id="email" placeholder="Your Email" required/>
                 </div>
                 <div className="flex flex-col gap-4">
                     <label htmlFor="password" className="text-xl font-semibold">Password</label>
-                    <input className="p-4 rounded-xl outline outline-1 outline-[#E8E8E8] focus-within:outline-[#643843]" type="password" name="password" id="password" placeholder="Your Password" />
+                    <input className="p-4 rounded-xl outline outline-1 outline-[#E8E8E8] focus-within:outline-[#643843]" type="password" name="password" id="password" placeholder="Your Password" required/>
                 </div>
                 <button className="bg-[#643843] hover:bg-[#99627A] rounded-xl text-xl text-white py-3 px-5">Sign In</button>
             </form>

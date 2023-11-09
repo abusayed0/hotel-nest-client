@@ -82,7 +82,7 @@ const SingleBookingCard = ({ bookingData, handleMyBookings}) => {
                 <div className="flex flex-col gap-1 items-end">
                     <button onClick={handleDeleteBooking} className="text-white font-medium p-2 bg-[tomato] rounded">Cancel</button>
                     <button onClick={() => navigate(`/update-booking/${_id}`)} className=" text-white font-medium p-2 bg-[#643843] rounded">Update Date</button>
-                    <button className=" text-white font-medium p-2 bg-[#643843] rounded">Add Review</button>
+                    <button onClick={() => navigate(`/add-review/${roomId}`)} className=" text-white font-medium p-2 bg-[#643843] rounded">Add Review</button>
                 </div>
             </div>
         </div>

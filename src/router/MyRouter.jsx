@@ -9,6 +9,7 @@ import RoomDetails from "../pages/room-details/RoomDetails";
 import ProetectedPage from "../protected-page/ProetectedPage";
 import ErrorPage from "../pages/error-page/ErrorPage";
 import UpdateDate from "../pages/update-date/UpdateDate";
+import AddReview from "../pages/add-review/AddReview";
 
 const MyRouter = createBrowserRouter([
     {
@@ -47,6 +48,10 @@ const MyRouter = createBrowserRouter([
                 path: "/update-booking/:bookingId",
                 loader: ({params}) => fetch(`http://localhost:5000/my-bookings/${params.bookingId}`),
                 element:<ProetectedPage><UpdateDate/></ProetectedPage>
+            },
+            {
+                path: "/add-review/:roomId",
+                element: <ProetectedPage><AddReview/></ProetectedPage>
             }
         ]
     }

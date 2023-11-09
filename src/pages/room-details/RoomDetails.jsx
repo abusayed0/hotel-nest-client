@@ -1,18 +1,19 @@
 import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import RoomImageSlider from "./RoomImageSlider";
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { AuthContext } from "../../providers/AuthProvider";
 import moment from "moment/moment";
 import toast from "react-hot-toast";
+import SingleReviewCard from "./SingleReviewCard";
 const RoomDetails = () => {
     const { user } = useContext(AuthContext);
     const from = useLocation().pathname;
     const navigate = useNavigate();
     const roomDetails = useLoaderData();
     const { _id, title, description, cost_per_night, size, special_offer, total_seat, total_review, thumbnail_image, images } = roomDetails;
-    const [review, setReview] = useState([]);
+    const [reviews, setReviews] = useState([]);
 
     const [date, setDate] = useState(null);
     const [availableSeat, setAvailableSeat] = useState(null);
@@ -77,7 +78,7 @@ const RoomDetails = () => {
             roomId: _id,
             restSeat: availableSeat - 1
         }
-        
+
         fetch(`http://localhost:5000/booking-data`, {
             method: "POST",
             headers: {
@@ -125,6 +126,14 @@ const RoomDetails = () => {
 
     };
 
+    useEffect(() => {
+        fetch(`http://localhost:5000/reviews?roomId=${_id}`)
+        .then(res => res.json())
+        .then(data => {
+            setReviews(data)
+        })
+    },[_id]);
+
     return (
         <div>
             <div className="bg-[#e7cbcb33] p-2 md:p-5">
@@ -163,16 +172,21 @@ const RoomDetails = () => {
                     <RoomImageSlider photos={[thumbnail_image, ...images]} />
                 </div>
                 <div className="mt-14">
-                    <h3 className="text-3xl font-semibold text-center mb-3">Review</h3>
+                    <h3 className="text-3xl font-semibold text-center mb-4">Reviews</h3>
                     {
-                        !review.length ?
+                        !reviews.length ?
 
                             <div className="text-2xl bg-white p-3 text-center">
                                 <p>No review for this room.</p>
                             </div>
                             :
-                            <div>
-
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {
+                                    reviews.map(review => <SingleReviewCard
+                                     key={review._id}
+                                     reviewData = {review}
+                                    />)
+                                }
                             </div>
                     }
                 </div>
