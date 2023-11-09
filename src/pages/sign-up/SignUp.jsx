@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
     const { createAccount, updateUserInfo } = useContext(AuthContext);
@@ -16,6 +17,7 @@ const SignUp = () => {
             .catch((err) => {
                 const errMess = err.message;
                 console.error(errMess);
+                toast.error(errMess);
             })
     };
     const handleSignUP = e => {
@@ -43,6 +45,7 @@ const SignUp = () => {
             .catch(err => {
                 const errorMessage = err.message;
                 console.error(errorMessage);
+                toast.error(errorMessage);
             })
 
     };

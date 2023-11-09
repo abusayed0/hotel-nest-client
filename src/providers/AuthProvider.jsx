@@ -49,7 +49,7 @@ const AuthProvider = ({children}) => {
             const signOutUserInfo = {email: user?.email};
             console.log({signOutUserInfo});
             setUser(currentUser);
-            setIsLoading(false);
+            // setIsLoading(false);
             if(currentUser){
                 const userInfo = {email: currentUser.email}
                 fetch("http://localhost:5000/jwt",{
@@ -63,6 +63,10 @@ const AuthProvider = ({children}) => {
                 .then(res => res.json())
                 .then(data => {
                     console.log("token create response",data)
+                    
+                })
+                .finally(() => {
+                    setIsLoading(false);
                 })
             }
             else{
@@ -76,7 +80,11 @@ const AuthProvider = ({children}) => {
                 })
                 .then(res => res.json())
                 .then(data => {
+                  
                     console.log("token delete response", data);
+                })
+                .finally(() => {
+                    setIsLoading(false);
                 })
             }
         });

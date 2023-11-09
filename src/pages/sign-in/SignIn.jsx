@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
+import toast from "react-hot-toast";
 
 const SignIn = () => {
     
@@ -24,13 +25,14 @@ const SignIn = () => {
         .then(credentail => {
             const loggedUser = credentail.user;
             console.log({loggedUser});
-
+            
             // navigate user after successfully sign in 
             navigate(from,{replace: true});
         })
         .catch(err => {
             const errMess = err.message;
             console.error(errMess);
+            toast.error(errMess)
         })
     };
 
@@ -46,6 +48,7 @@ const SignIn = () => {
         .catch(err => {
             const errMess = err.message;
             console.error(errMess);
+            toast.err(errMess)
         })
     };
 
