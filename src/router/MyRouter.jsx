@@ -7,11 +7,13 @@ import SignIn from "../pages/sign-in/SignIn";
 import SignUp from "../pages/sign-up/SignUp";
 import RoomDetails from "../pages/room-details/RoomDetails";
 import ProetectedPage from "../protected-page/ProetectedPage";
+import ErrorPage from "../pages/error-page/ErrorPage";
 
 const MyRouter = createBrowserRouter([
     {
         path: "/",
         element: <MainLayout />,
+        errorElement: <ErrorPage/>,
         children: [
             {
                 path: "/",

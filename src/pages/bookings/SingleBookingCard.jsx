@@ -88,6 +88,7 @@ const SingleBookingCard = ({ bookingData, handleMyBookings}) => {
 };
 
 SingleBookingCard.propTypes = {
-    bookingData: PropTypes.object.isRequired
+    bookingData: PropTypes.object.isRequired,
+    handleMyBookings: PropTypes.func.isRequired
 };
 export default SingleBookingCard;

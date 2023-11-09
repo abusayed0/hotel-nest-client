@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { AuthContext } from "../../providers/AuthProvider";
 import moment from "moment/moment";
+import toast from "react-hot-toast";
 const RoomDetails = () => {
     const { user } = useContext(AuthContext);
     const from = useLocation().pathname;
@@ -85,35 +86,40 @@ const RoomDetails = () => {
         })
             .then(res => res.json())
             .then(data => {
+                console.log(data);
                 if (data.insertedId || data.modifiedCount) {
-                    console.log("booked successfully");
                     setAvailableSeat(availableSeat - 1);
                     setAvailable(availableSeat - 1 > 0);
+
+                    // add to user booking collection if previos crud post oparaiton is successfull 
+                    const bookingInfo = {
+                        roomId: _id,
+                        title,
+                        description,
+                        cost_per_night,
+                        size,
+                        thumbnail_image,
+                        userEmail: user.email,
+                        userName: user.displayName,
+                        bookedDate: moment(date).format("DD-MM-YYYY")
+                    };
+
+                    fetch(`http://localhost:5000/users-bookings`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(bookingInfo)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                            toast.success("Room seat booked successfully.");
+                        })
                 }
             })
 
-        const bookingInfo = {
-            roomId: _id,
-            title,
-            description,
-            cost_per_night,
-            size,
-            thumbnail_image,
-            userEmail: user.email,
-            userName : user.displayName,
-            bookedDate: moment(date).format("DD-MM-YYYY")
-        }
-        fetch(`http://localhost:5000/users-bookings`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(bookingInfo)
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-            })
+
 
     };
 
