@@ -1,7 +1,7 @@
 
 const NewsLetterSignUp = () => {
     return (
-        <div className="mt-20 text-center flex flex-col gap-3 bg-[lightgray] p-2 md:p-5">
+        <div className="mt-20 text-center flex flex-col gap-3 bg-[lightgray] py-10 px-2 md:px-5">
             <h3 className="text-4xl font-semibold">Stay Informed, Save More: Subscribe Now!</h3>
             <p className="text-xl">Get exclusive updates and deals by subscribing to our newsletter. Elevate your experience with a simple click.</p>
             <div className="relative w-full max-w-[500px] mx-auto ">
