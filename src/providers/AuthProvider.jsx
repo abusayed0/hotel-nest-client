@@ -5,7 +5,7 @@ import auth from "../firebase/intailize-firebase-authentication";
 export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({children}) => {
-    const [user, setUser] = useState("josim");
+    const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
     const createAccount = (email, password) => {
@@ -46,8 +46,39 @@ const AuthProvider = ({children}) => {
 
         const unSub = onAuthStateChanged(auth, currentUser => {
             console.log("current user inside auth", currentUser);
+            const signOutUserInfo = {email: user?.email};
+            console.log({signOutUserInfo});
             setUser(currentUser);
             setIsLoading(false);
+            if(currentUser){
+                const userInfo = {email: currentUser.email}
+                fetch("http://localhost:5000/jwt",{
+                    method: "POST",
+                    credentials:"include",
+                    headers:{
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(userInfo)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log("token create response",data)
+                })
+            }
+            else{
+                fetch("http://localhost:5000/sign-out", {
+                    method: "POST",
+                    credentials: "include",
+                    headers:{
+                        "Content-Type" : "application/json"
+                    },
+                    body: JSON.stringify(signOutUserInfo)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log("token delete response", data);
+                })
+            }
         });
 
         return () => {
