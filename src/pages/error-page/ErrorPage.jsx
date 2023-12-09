@@ -23,7 +23,7 @@ const ErrorPage = () => {
 
     return (
        
-            <div style={{backgroundPositionX: xValue, backgroundPositionY: yValue}} className="w-full h-screen bg-[#151729] bg-[url('https://i.ibb.co/KbLYZ0Q/p404.png')] flex justify-center items-center p-2 md:p-5">
+            <div style={{backgroundPositionX: xValue, backgroundPositionY: yValue}} className="w-full h-screen bg-[#151729] bg-[url('https://i.ibb.co/THX3g1F/p404.png')] flex justify-center items-center p-2 md:p-5">
                 <div className="max-w-[500px] text-center">
                     <h1 className="text-9xl font-bold text-white">404</h1>
                     <h3 className="mb-5 text-3xl text-white">Opps ! page not found.</h3>
